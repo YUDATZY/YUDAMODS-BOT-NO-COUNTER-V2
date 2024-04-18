@@ -17,4 +17,3 @@ Thanks To :
 */
 
 require("./index")
-require("./yudamods-panel")
