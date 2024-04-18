@@ -176,7 +176,6 @@ bot.on('text', async (ctx) => {
 ┃⿻ /pushkontakmenu
 ┃⿻ /allmenu
 ┃⿻ /ddosmenu
-┃⿻ /panelmenu
 ┃⿻ /cekidgc
 ┃⿻ /pushkontak
 ┃⿻ /jpm
